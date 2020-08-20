@@ -6,7 +6,7 @@ import useFetch from '../../../Hooks/useFetch';
 import './Nav.css'
 
 const Menu = (props) => {
-  const { dados, setDados } = React.useContext(StoreContext);
+  const { setDados } = React.useContext(StoreContext);
   const [userName, setUserName] = React.useState(null);
   const { request } = useFetch();
   const [showTip, setShowTip] = React.useState(false);
@@ -20,10 +20,9 @@ const Menu = (props) => {
       setTarget(e.target);
     } else {
       const { json } = await request(`https://api.github.com/users/${userName}/repos`);
-      setDados([...json].map(x => ({ ...x, star: false })));
-
-     
-      if (json.length === 0) {
+      if (Array.isArray(json) && json.length > 0)
+        setDados([...json].map(x => ({ ...x, star: false })));
+      else {
         setShowTip(!showTip);
         setTarget(refTarget);
       }
@@ -38,7 +37,7 @@ const Menu = (props) => {
   return (
     <>
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="#home">
+        <Navbar.Brand>
           DevGitHub
       </Navbar.Brand>
         <Form inline className="ml-auto">

@@ -3,6 +3,7 @@ import { Table } from 'react-bootstrap'
 import Main from '../../components/Template/main/Main'
 import StoreContext from '../../components/Store/Context';
 import { StarFill, Star } from 'react-bootstrap-icons';
+import "./Home.css"
 
 const PagesHome = () => {
   const { dados, setDados } = React.useContext(StoreContext);
@@ -10,6 +11,10 @@ const PagesHome = () => {
   function hadleClickStar(id) {
     const newDados = dados.map(repo => repo.id === id ? { ...repo, star: !repo.star } : repo);
     setDados(newDados);
+  }
+
+  function formatToDate(value) {
+    return new Date(value).toLocaleString();
   }
 
   return (
@@ -31,9 +36,9 @@ const PagesHome = () => {
                 <tr >
                   <td>{repo.id}</td>
                   <td>{repo.name}</td>
-                  <td>{repo.created_at}</td>
-                  <td>{repo.updated_at}</td>
-                  <td><span onClick={() => hadleClickStar(repo.id)}>{repo.star ? <StarFill color="yellow" /> : <Star />}</span> </td>
+                  <td>{formatToDate(repo.created_at)}</td>
+                  <td>{formatToDate(repo.updated_at)}</td>
+                  <td><span className="star" onClick={() => hadleClickStar(repo.id)}>{repo.star ? <StarFill color="yellow" /> : <Star />}</span> </td>
                 </tr>
               </tbody>
             )
