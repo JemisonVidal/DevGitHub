@@ -3,8 +3,6 @@ import { Navbar, Form, FormControl, Button, InputGroup, Overlay, Popover } from 
 import StoreContext from '../../Store/Context';
 import useFetch from '../../../Hooks/useFetch';
 
-import './Nav.css'
-
 const Menu = (props) => {
   const { setDados } = React.useContext(StoreContext);
   const [userName, setUserName] = React.useState(null);
